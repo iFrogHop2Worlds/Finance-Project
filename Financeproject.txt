@@ -1,0 +1,39 @@
+Rough program layout
+
+Classes
+
+> Bank
+	*inherits Savings
+	*inherits Chequeing
+	*inherits Investors
+	*inherits Vault
+	- Branch number (instance id)
+	- Branch Members
+	- Accounts (Hashmap of Strings (name), vector[chq,sav,inv] (account balances))
+)
+> Account Base
+	 - add ons. (pay for more/unlimted debit tx, etc)
+	 - deposit
+	 - withdrawl
+	 - open account (includes branch number/instance which was created from.)
+	 - close account
+> Savings acc
+	*inherits Base
+	- account fee
+	- balance apreciates at rate
+	- x amount of free debit tx then charge x amount
+> Chequeing acc
+	*inherits Base
+	- account fee
+	- number of debit tx 150(base)
+
+> investors acc
+	*inherits Base
+	- account fee
+	- apreciation options aka diff rates for diff assets
+	- credit lines (tier system)
+
+
+> Credit 
+
+> Accounting

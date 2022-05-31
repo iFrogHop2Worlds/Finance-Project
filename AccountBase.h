@@ -24,9 +24,9 @@ class AccountBase {
 
         void openAccount();
         void closeAccount(std::string);
-        int withdrawl();
-        int deposit();
-        int checkBalance();
+        virtual long double withdrawl(std::string, long double);
+        virtual long double deposit(std::string, long double);
+        virtual long double checkBalance(std::string);
         void selectAddons();
         void removeAddons();
 

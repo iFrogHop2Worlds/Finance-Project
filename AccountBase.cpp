@@ -1,4 +1,4 @@
-#include "AccountBase.h"
+#include "AccountBase.hpp"
 
 //cosntructors
 //AccountBase::AccountBase() {}
@@ -12,8 +12,7 @@ void AccountBase::openAccount(){
     std::cin >> name;
     account.owner = name;
     accounts.emplace(std::make_pair(account.owner, account));
-    auto check = accounts.find(name);
-    std::cout << name << std::endl; //sanity check
+    //auto check = accounts.find(name);
 }
 
 void AccountBase::closeAccount(std::string name){
@@ -27,23 +26,20 @@ long double AccountBase::deposit(std::string name, long double amount) {
     std::string names =  std::string(accounts[name].owner);
     accounts[name].balance += amount;
     long double balance = double(accounts[name].balance);
-    cout << names << endl;
-    cout << balance << endl;
     return balance;
 }
 
-long double AccountBase::withdrawl(std::string name, long double amount) {
+long double AccountBase::DebitTransfer(std::string name, long double amount) {
     std::string names =  std::string(accounts[name].owner);
     accounts[name].balance -= amount;
-    long double balance = double(accounts[name].balance);
-    cout << names << endl;
-    cout << balance << endl;
+    long double balance = accounts[name].balance;
+    cout << "regular debit transfer" << endl;
     return balance;
 }
 
 long double AccountBase::checkBalance(std::string name) {
     std::string names =  std::string(accounts[name].owner);
-    long double balance = double(accounts[name].balance);
+    long double balance = accounts[name].balance;
     cout << names << endl;
     cout << "account balance: $" << balance << endl;
     return balance;

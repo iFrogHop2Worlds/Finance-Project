@@ -7,11 +7,15 @@
 class InvestingAccount: virtual public AccountBase {
     private:
     public:
+    void openAccount();
     // create_line_of_credit();
     // low_risk_general();  
     // med_risk_general();
     // high_risk_general();
     // custom_investment();
+
+    InvestingAccount();
+    ~InvestingAccount();
 };
 
 #endif

@@ -3,9 +3,14 @@
 
 class ChequeingAccount: virtual public AccountBase {
     private:
-        unsigned int free_debit_tx = 60;
     public:
-    // override withdrawl? or use savings withrsrawl? should i move withdrawL??
+        // override the account creation function. Add initial fee, debit tx, etc?
+        void openAccount();
+        // override Billing to suit account type ~ ill do this when I finalize the solution in base.
+
+
+    ChequeingAccount();
+    ~ChequeingAccount();
 };
 
 #endif

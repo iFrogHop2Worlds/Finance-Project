@@ -31,12 +31,29 @@ long double AccountBase::deposit(std::string name, long double amount) {
     return balance;
 }
 
-
-long double AccountBase::Withdraw(std::string name, long double amount) {
+// general withdrawl
+long double AccountBase::withdraw(std::string name, long double amount) {
     std::string names =  std::string(accounts[name].owner);
     accounts[name].balance -= amount;
     long double balance = accounts[name].balance;
     cout << "regular debit transfer" << endl;
+    return balance;
+}
+
+//debit transfers are a convenient version of withrdawing using 3rd party infrastructure...
+long double AccountBase::withdraw(std::string name, long double amount, bool thirdParty) {
+    std::string names =  std::string(accounts[name].owner);
+    accounts[name].balance -= amount;
+    long double balance = accounts[name].balance;
+    if(accounts[name].remaining_debit_tx != 0){
+        accounts[name].remaining_debit_tx--;
+    } else if (accounts[name].users_addons.debit_txs != 0) {
+        accounts[name].users_addons.debit_txs--;
+    } else {
+        balance -= 1.50; //raw debit fee.
+        cout << "your out of debit transfers" << endl;
+    }
+    cout << "Savings account transfer." << endl;
     return balance;
 }
 
@@ -51,16 +68,28 @@ long double AccountBase::checkBalance(std::string name) {
 void AccountBase::accountBilling(){
     // need to make this happen once a day and remove the account bool paid. I dont like that approach.
     for (auto& it: accounts) {
-    cout << it.first << "\n";
-    time_t account_created_at = time(0);
-    auto checkTime = gmtime(&account_created_at); 
-    if(it.second.billClock->tm_mday == checkTime->tm_mday && it.second.paid == false){
-        Withdraw(it.first, 5.00);
-        it.second.paid == true;
-        cout << "debited: -$5" << "\n";
-        cout << "new billing cycle: " << it.second.billClock->tm_mday << "\n";
+        cout << "name: " << it.first << "account type: " << it.second.account_type <<"\n";
+        time_t account_created_at = time(0);
+        auto checkTime = gmtime(&account_created_at); 
+        if(it.second.billClock->tm_mday == checkTime->tm_mday && it.second.paid == false){
+            withdraw(it.first, 5.00);
+            it.second.paid == true;
+            cout << "debited: -$5" << "\n";
+            cout << "new billing cycle: " << it.second.billClock->tm_mday << "\n";
+        }
     }
 }
+
+void AccountBase::accountOverview(string name) {
+    cout << "Account name: " << accounts[name].owner << "\n";
+    cout << "Account type: " << accounts[name].account_type << "\n";
+    cout << "Account balance: " << accounts[name].balance << "\n";
+    cout << "number of remaining debit tx's: " << accounts[name].remaining_debit_tx << "\n";
+    // cout << "txHistory: " << accounts[name].txHistory << "\n";
+}
+
+void AccountBase::numberOfAccounts(){
+    cout << "There are #" << accounts.size() << " accounts \n";
 }
 
 void AccountBase::selectAddons() {

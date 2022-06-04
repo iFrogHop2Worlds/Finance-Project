@@ -23,20 +23,24 @@ class AccountBase {
     struct Account {
         string owner;
         long double balance = 0;
-        unsigned int remaining_debit_tx = 15;
+        unsigned int remaining_debit_tx = 0;
         Addons users_addons;
         vector<string> txHistory; // change string into a custom txHistory Type?
         tm *billClock;
         bool paid =  false;
+        string account_type;
     }; 
     public:
         unordered_map<string, Account> accounts;
         void openAccount();
         void closeAccount(string);
         void accountBilling(); // check each account if it needs to be billed or not. if so bill the account and reset boolean
-        long double Withdraw(string, long double); // generic withrdaw method
+        void accountOverview(string);
+        long double withdraw(string, long double); // generic withrdaw method
+        long double withdraw(string, long double, bool); // 3rd party /debit tx
         long double deposit(string, long double);
         long double checkBalance(string);
+        void numberOfAccounts();
         void selectAddons(); // view and purchase addons
         void removeAddons(); // remove addons and get some refund
 

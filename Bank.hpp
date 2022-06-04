@@ -7,7 +7,7 @@
 #include "ChequeingAccount.hpp"
 #include "InvestingAccount.hpp"
 
-class Bank: public SavingsAccount, ChequeingAccount, InvestingAccount {
+class Bank: public SavingsAccount, public ChequeingAccount, public InvestingAccount {
     private:
 
     public :

@@ -9,10 +9,8 @@ class SavingsAccount: virtual public AccountBase {
        
     public:
         // override the account creation function. Add initial fee, debit tx, etc?
-
-        // override Billing to suit account type
-
-        long double Withdraw(string, long double, bool); // oerrides the base class implementation
+        void openAccount();
+        // override Billing to suit account type ~ ill do this when I finalize the solution in base.
         long double anualReturn(long double sum, double interestRate = 0.03); // default rate is 0.03
         unsigned int check_debit_txs(string);
         SavingsAccount();

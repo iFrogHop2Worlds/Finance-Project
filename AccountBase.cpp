@@ -31,6 +31,14 @@ long double AccountBase::deposit(std::string name, long double amount) {
     return balance;
 }
 
+long double AccountBase::checkBalance(std::string name) {
+    std::string names =  std::string(accounts[name].owner);
+    long double balance = accounts[name].balance;
+    cout << names << endl;
+    cout << "account balance: $" << balance << endl;
+    return balance;
+}
+
 // general withdrawl
 long double AccountBase::withdraw(std::string name, long double amount) {
     std::string names =  std::string(accounts[name].owner);
@@ -54,15 +62,16 @@ long double AccountBase::withdraw(std::string name, long double amount, bool thi
         cout << "your out of debit transfers" << endl;
     }
     cout << "Savings account transfer." << endl;
-    return balance;
+    return amount;
 }
 
-long double AccountBase::checkBalance(std::string name) {
-    std::string names =  std::string(accounts[name].owner);
-    long double balance = accounts[name].balance;
-    cout << names << endl;
-    cout << "account balance: $" << balance << endl;
-    return balance;
+void AccountBase::transfer(std::string name1, std::string name2, long double sum) {
+    if(checkBalance(name1) >= sum){
+        long double moneyBeingSwapped = withdraw(name1, sum);
+        deposit(name2, moneyBeingSwapped);
+    } else {
+        cout << "Sorry your broke \n";
+    }
 }
 
 void AccountBase::accountBilling(){

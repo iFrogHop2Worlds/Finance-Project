@@ -29,13 +29,14 @@ int main () {
                     case 1: instance1.SavingsAccount::openAccount(); break;
                     case 2: instance1.ChequeingAccount::openAccount(); break;
                     case 3: instance1.InvestingAccount::openAccount(); break;
-                    case 4: displaymenu(); break; 
-                    default: cout << "Invalid option, try again. \n"; createAccountMenu(); break;
+                    case 4: break; 
+                    default: cout << "Invalid option, try again. \n"; break;
                 }
             } break;
             case 2: {
                 manageAccountMenu();
                 string name;
+                string name2;
                 long double sum;
                 cout << " Enter your choice 1-4." << endl;
                 cin >> selection;
@@ -55,20 +56,31 @@ int main () {
                         instance1.withdraw(name, sum);
                     }break;
                     case 3: {
+                        cout << "Enter your account name \n";
+                        cin >> name;
+                        cout << "Enter recipients account name \n";
+                        cin >> name2;
+                        cout << "Enter sum";
+                        cin >> sum;
+                        instance1.transfer(name, name2, sum);
+                    }break;
+                    case 4: {
                         cout << "Enter account name \n";
                         cin >> name;
                         instance1.checkBalance(name);
                     } break;
-                    case 4: {
+                    case 5: {
                         cout << "Enter account name \n";
                         cin >> name;
                         instance1.accountOverview(name);
                     } break; 
-                    case 5: displaymenu(); break; 
-                    default: cout << "Invalid option, try again. \n"; manageAccountMenu(); break;
+                    case 6: break; 
+                    default: cout << "Invalid option, try again. \n"; break;
                 }
             } break;
-            case 3: cout<<"statistics dashboard \n"; break;
+            case 3: {
+                instance1.numberOfAccounts(); 
+            } break;
             case 4: confirm = false; break;
             default: cout << "Invalid option, try again. \n"; displaymenu(); break;
         }
@@ -135,12 +147,13 @@ void createAccountMenu() {
 
 void manageAccountMenu() {
     cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n";
-    cout<<" \t\tChoose account type \t \n ";
+    cout<<" \t\tManage accounts \t \n ";
     cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ \n";
     cout<<" 1. Deposit\n";
     cout<<" 2. Withdrawl\n";
-    cout<<" 3. Account balance \n";
-    cout<<" 4. Account overview \n";
-    cout<<" 5. return main menu \n";
+    cout<<" 3. Transfer\n";
+    cout<<" 4. Account balance \n";
+    cout<<" 5. Account overview \n";
+    cout<<" 6. return main menu \n";
 }
 

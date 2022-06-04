@@ -11,6 +11,8 @@ void AccountBase::openAccount(){
     std::cout << "Enter your full name" << std::endl;
     std::cin >> name;
     account.owner = name;
+    time_t account_created_at = time(0);
+    account.billClock = gmtime(&account_created_at);
     accounts.emplace(std::make_pair(account.owner, account));
     //auto check = accounts.find(name);
 }
@@ -29,7 +31,8 @@ long double AccountBase::deposit(std::string name, long double amount) {
     return balance;
 }
 
-long double AccountBase::DebitTransfer(std::string name, long double amount) {
+
+long double AccountBase::Withdraw(std::string name, long double amount) {
     std::string names =  std::string(accounts[name].owner);
     accounts[name].balance -= amount;
     long double balance = accounts[name].balance;
@@ -45,6 +48,20 @@ long double AccountBase::checkBalance(std::string name) {
     return balance;
 }
 
+void AccountBase::accountBilling(){
+    // need to make this happen once a day and remove the account bool paid. I dont like that approach.
+    for (auto& it: accounts) {
+    cout << it.first << "\n";
+    time_t account_created_at = time(0);
+    auto checkTime = gmtime(&account_created_at); 
+    if(it.second.billClock->tm_mday == checkTime->tm_mday && it.second.paid == false){
+        Withdraw(it.first, 5.00);
+        it.second.paid == true;
+        cout << "debited: -$5" << "\n";
+        cout << "new billing cycle: " << it.second.billClock->tm_mday << "\n";
+    }
+}
+}
 
 void AccountBase::selectAddons() {
 

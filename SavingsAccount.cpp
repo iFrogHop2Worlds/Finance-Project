@@ -13,26 +13,26 @@
     }
 
     //debit transfers are a convenient version of withrdawing using 3rd party infrastructure...
-    long double SavingsAccount::DebitTransfer(std::string name, long double amount) {
+    long double SavingsAccount::Withdraw(std::string name, long double amount, bool thirdParty) {
     std::string names =  std::string(accounts[name].owner);
     accounts[name].balance -= amount;
     long double balance = accounts[name].balance;
-    if(free_debit_tx != 0){
-        free_debit_tx--;
+    if(accounts[name].remaining_debit_tx != 0){
+        accounts[name].remaining_debit_tx--;
     } else if (accounts[name].users_addons.debit_txs != 0) {
         accounts[name].users_addons.debit_txs--;
     } else {
         balance -= 1.50; //raw debit fee.
-        cout << "your out of free debit transfers" << endl;
+        cout << "your out of debit transfers" << endl;
     }
     cout << "Savings account transfer." << endl;
     return balance;
     }
 
     // helper function to check number of debit transfers remaining
-    unsigned int SavingsAccount::check_debit_txs(){
-        cout << "number of tx left: " << free_debit_tx << endl;
-        return free_debit_tx;
+    unsigned int SavingsAccount::check_debit_txs(std::string name){
+        cout << "number of tx left: " << accounts[name].remaining_debit_tx << endl;
+        return accounts[name].remaining_debit_tx;
     }
     
 

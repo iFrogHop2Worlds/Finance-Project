@@ -13,23 +13,34 @@ Classes
 )
 > Account Base
 	 - add ons. (pay for more/unlimted debit tx, etc)
-	 - deposit
-	 - withdrawl
+	 - view addons()
+	 - purchase addons()
+	 - deposit()
+	 - withdrawl()
+	 - get # of remaining debit tx();
 	 - open account (includes branch number/instance which was created from.)
+	 - account Billing() 
 	 - close account
 > Savings acc
 	*inherits Base
-	- account fee
-	- balance apreciates at rate
-	- x amount of free debit tx then charge x amount
+	- account Billing() may override as needed
+	- balance apreciates rate()
+	- number of debit tx 15(base)
+	- withdrawl() override - debit tx (conveneient/3rd part function)
+	- withdrawl() inherited from base
+	- annual return() * experimenting with this here will prob move to base.
+	
 > Chequeing acc
 	*inherits Base
-	- account fee
-	- number of debit tx 150(base)
+	- account Billing() may override as needed
+	- number of debit tx 60(base)
+	- withdrawl() override - debit tx (conveneient/3rd part function)
+	- withdrawl() inherited from base
 
 > investors acc
 	*inherits Base
-	- account fee
+	- we use withdrawl() inherited from base only. No 3rd party access.
+	- account Billing() may override as needed
 	- apreciation options aka diff rates for diff assets
 	- credit lines (tier system)
 

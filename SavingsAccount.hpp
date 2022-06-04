@@ -3,14 +3,18 @@
 #include <vector>
 #include "AccountBase.hpp"
  
- 
+  
 class SavingsAccount: virtual public AccountBase {
     private:
-        unsigned int free_debit_tx = 15; // when we use debit minus 1.
+       
     public:
-        long double DebitTransfer(string, long double); // oerrides the base class implementation
+        // override the account creation function. Add initial fee, debit tx, etc?
+
+        // override Billing to suit account type
+
+        long double Withdraw(string, long double, bool); // oerrides the base class implementation
         long double anualReturn(long double sum, double interestRate = 0.03); // default rate is 0.03
-        unsigned int check_debit_txs();
+        unsigned int check_debit_txs(string);
         SavingsAccount();
         ~SavingsAccount();
     
